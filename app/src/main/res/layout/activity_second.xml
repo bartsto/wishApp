@@ -7,6 +7,23 @@
         android:layout_height="match_parent"
         tools:context=".SecondActivity">
 
+    <Button
+            android:text="Foto"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/foto" android:layout_marginTop="8dp"
+            app:layout_constraintTop_toBottomOf="@+id/textView"
+            android:onClick="makePicture" android:layout_marginBottom="60dp"
+            app:layout_constraintBottom_toTopOf="@+id/fotoImageView" app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"/>
+    <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_launcher_foreground_unicorn"
+            android:id="@+id/fotoImageView" app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" android:layout_marginBottom="116dp"
+            app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintHorizontal_bias="0.501"
+            android:scaleType="center"/>
     <TextView
             android:text="TextView"
             android:layout_width="wrap_content"
