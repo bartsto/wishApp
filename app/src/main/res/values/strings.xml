@@ -2,4 +2,11 @@
     <string name="app_name">wishApp</string>
     <string name="edit_message">Enter a message</string>
     <string name="button_send">Send</string>
+    <string name="hint_name">Wish name</string>
+    <string name="hint_description">Wish description</string>
+    <string name="hint_category">Wish category</string>
+    <string name="button_camera">Camera</string>
+    <string name="button_gallery">Gallery</string>
+    <string name="button_add">Add wish</string>
+    <string name="button_new">New wish!</string>
 </resources>
