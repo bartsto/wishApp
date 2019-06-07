@@ -7,9 +7,8 @@ import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Environment
 import android.provider.MediaStore
+import android.support.design.widget.TextInputEditText
 import android.support.v4.content.FileProvider
-import android.view.ActionMode
-import android.widget.ImageView
 import kotlinx.android.synthetic.main.activity_new_wish.*
 import kotlinx.android.synthetic.main.activity_second.*
 import java.io.File
@@ -34,6 +33,10 @@ class NewWishActivity : AppCompatActivity() {
 
         button_camera.setOnClickListener{
             dispatchCameraIntent()
+        }
+
+        button_save.setOnClickListener {
+            saveWish()
         }
     }
 
@@ -63,6 +66,7 @@ class NewWishActivity : AppCompatActivity() {
         intent.type = "image/*"
         intent.action = Intent.ACTION_GET_CONTENT
         startActivityForResult(Intent.createChooser(intent, "Wybierz zdjęcie"), SELECT_PICTURE)
+//        onActivityResult(Intent.createChooser(intent, "Wybierz zdjęcie"), SELECT_PICTURE)
     }
 
     fun dispatchCameraIntent(){
@@ -89,5 +93,14 @@ class NewWishActivity : AppCompatActivity() {
         var storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES)
         var image = File.createTempFile(imageName, ".jpg", storageDir)
         return image
+    }
+
+
+    fun saveWish(){
+        val wish_name = findViewById<TextInputEditText>(R.id.input_name).text.toString()
+        val wish_description = findViewById<TextInputEditText>(R.id.input_description).text.toString()
+        val image_path = currentPath
+
+        //tutaj mozna zapisac do bazy
     }
 }
