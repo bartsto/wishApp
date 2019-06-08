@@ -30,13 +30,15 @@ class MainActivity : AppCompatActivity() {
     fun viewWishList() {
         val databaseHandler: DatabaseHandler = DatabaseHandler(this)
         val wishList: List<Wish> = databaseHandler.getWishList()
+        val wishArrayId = Array<String>(wishList.size){"0"}
         val wishArrayName = Array<String>(wishList.size) { "null" }
         var index = wishList.size-1
         for (w in wishList) {
+            wishArrayId[index] = w.wishId.toString()
             wishArrayName[index] = w.name
             index--
         }
-        val myListAdapter = MyListAdapter(this, wishArrayName)
+        val myListAdapter = MyListAdapter(this, wishArrayId, wishArrayName, wishList)
         listView.adapter = myListAdapter
 
 

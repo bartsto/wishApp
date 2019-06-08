@@ -23,6 +23,10 @@ class NewWishActivity : AppCompatActivity() {
     val TAKE_PICTURE = 1
     val SELECT_PICTURE = 2
 
+    companion object {
+        private var WISH_INDEX = 0
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_new_wish)
@@ -98,13 +102,14 @@ class NewWishActivity : AppCompatActivity() {
 
 
     fun saveWish() {
+        val wish_id = WISH_INDEX++
         val wish_name = input_name.text.toString()
         val wish_description = input_description.text.toString()
         val image_path = currentPath
         val databaseHandler: DatabaseHandler = DatabaseHandler(this)
 
         if (wish_name.trim() != "" && wish_description.trim() != "") {
-            val status = databaseHandler.addWish(Wish(wish_name, wish_description, image_path))
+            val status = databaseHandler.addWish(Wish(wish_id, wish_name, wish_description, image_path))
             if (status > -1) {
                 Toast.makeText(applicationContext, "Record saved", Toast.LENGTH_LONG).show()
                 input_name.text.clear()
