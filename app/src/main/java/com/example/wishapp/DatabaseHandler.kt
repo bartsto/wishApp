@@ -33,8 +33,8 @@ class DatabaseHandler(context: Context): SQLiteOpenHelper(context,DATABASE_NAME,
         val db = this.writableDatabase
         val contentValues = ContentValues()
         contentValues.put(KEY_NAME, wish.name)
-        contentValues.put(KEY_DESCRIPTION, wish.description) // EmpModelClass Name
-        contentValues.put(KEY_IMAGEPATH, wish.imagePath) // EmpModelClass Phone
+        contentValues.put(KEY_DESCRIPTION, wish.description)
+        contentValues.put(KEY_IMAGEPATH, wish.imagePath)
         val success = db.insert(TABLE_WISH, null, contentValues)
         db.close()
         return success
