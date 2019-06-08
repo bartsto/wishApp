@@ -1,7 +1,7 @@
 package com.example.wishapp
 
 class Wish (
-//    var id: Int,
+    var wishId: Int,
     var name: String,
     var description: String,
 //    var category: Category = Category("", "")
