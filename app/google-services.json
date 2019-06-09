@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "955718377286",
+    "firebase_url": "https://wishapp-ff1e7.firebaseio.com",
+    "project_id": "wishapp-ff1e7",
+    "storage_bucket": "wishapp-ff1e7.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:955718377286:android:279bbfbe7cfe2160",
+        "android_client_info": {
+          "package_name": "com.example.wishapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "955718377286-m570rcaic1e1bsnms8frrurjb9fgjlb7.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.wishapp",
+            "certificate_hash": "52f4db763ea49f33abe7e9e1d69cc1d9217214f4"
+          }
+        },
+        {
+          "client_id": "955718377286-8ops4suip0p1mer5cirec936keqch9pn.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyArIUWSr6Cdd0IE6QexDPjyHpjpFCEnMK4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "955718377286-8ops4suip0p1mer5cirec936keqch9pn.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

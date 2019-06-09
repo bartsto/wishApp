@@ -1,6 +1,7 @@
 package com.example.wishapp
 
 import android.content.DialogInterface
+import android.app.ProgressDialog
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -10,13 +11,27 @@ import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
+import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.storage.StorageReference
 import kotlinx.android.synthetic.main.activity_wish_detail.*
+import java.util.*
+
 
 class WishDetailActivity : AppCompatActivity() {
+
+    private var filePath: Uri? = null
+    private var urlPath: String? = null
+
+    internal var storage:FirebaseStorage? = null
+    internal var storageReferences: StorageReference? = null
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_wish_detail)
+
+        storage = FirebaseStorage.getInstance()
+        storageReferences = storage!!.reference
 
         val wishId = intent.getIntExtra("wishId", -1)
         val databaseHandler: DatabaseHandler = DatabaseHandler(this)
@@ -32,10 +47,12 @@ class WishDetailActivity : AppCompatActivity() {
 
         val wishDetailImage = findViewById<ImageView>(R.id.wish_detail_image).apply {
             setImageURI(Uri.parse(Uri.decode(wish.imagePath)))
+            filePath = Uri.parse(Uri.decode(wish.imagePath))
+
         }
 
         button_find.setOnClickListener {
-
+            uploadFile()
         }
 
         button_save_edited.setOnClickListener {
@@ -51,20 +68,47 @@ class WishDetailActivity : AppCompatActivity() {
         super.onWindowFocusChanged(hasFocus)
     }
 
-    fun dispatchSaveEditedWishIntent() {
+    private fun uploadFile() {
+        println(filePath)
+        if(filePath != null){
+            val progressDialog = ProgressDialog(this)
+            progressDialog.setTitle("Uploading...")
+            progressDialog.show()
 
-    }
+            val imageRef = storageReferences!!.child("images/" + UUID.randomUUID().toString())
+            imageRef.putFile(filePath!!)
+                .addOnSuccessListener {
+                    progressDialog.dismiss()
+                    Toast.makeText(applicationContext, "File uploaded", Toast.LENGTH_SHORT).show()
 
-    fun dispatchDeleteWishIntent() {
+                }
+                .addOnFailureListener{
+                    progressDialog.dismiss()
+                    Toast.makeText(applicationContext, "Failed", Toast.LENGTH_SHORT).show()
+                }
+                .addOnProgressListener {taskSnapShot ->
+                    val progress = 100.0 * taskSnapShot.bytesTransferred/taskSnapShot.totalByteCount
+                    progressDialog.setMessage("Uploaded " + progress.toInt() + "%...")
+                }
+                .addOnCompleteListener{ task ->
+                    if(task.isSuccessful){
+                        urlPath = task.result.toString()
+                        println("************************************************** GET URL ADDRESSES")
+                        println(urlPath)
+                    }
 
+                }
+
+//            searchImage(urlPath)
+        }
     }
 
     fun searchImage(imgPath: String) {
         var base_url: String = "https://www.google.com/searchbyimage?site=search&sa=X&image_url="
-        var google_shop: String = "https://www.google.com/search?q={}&source=lnms&tbm=shop&"
-            .format("slowo + klucz")
+//        var google_shop: String = "https://www.google.com/search?q={}&source=lnms&tbm=shop&"
+//            .format("slowo + klucz")
         val uri = Uri.parse(base_url + imgPath)
-        var intent: Intent = Intent(Intent.ACTION_VIEW, uri)
+        var intent = Intent(Intent.ACTION_VIEW, uri)
         startActivity(intent)
     }
 
