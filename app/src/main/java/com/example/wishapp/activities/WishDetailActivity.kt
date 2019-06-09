@@ -20,6 +20,11 @@ import kotlinx.android.synthetic.main.activity_wish_detail.*
 import java.util.*
 
 class WishDetailActivity : AppCompatActivity() {
+    /**
+     * Activity to show all information of wish with manage functions
+     * This activity has include integration with external API firebase for store image to get URL addresses
+     * This activity have feature to get list shop items based on image
+     */
 
     private var filePath: Uri? = null
     private var urlPath: String? = null
@@ -70,6 +75,9 @@ class WishDetailActivity : AppCompatActivity() {
     }
 
     private fun uploadFile() {
+        /**
+         * method to upload image to google cloud storage to get URL address of image to find item in shop based on image
+         */
         if(filePath != null){
             val progressDialog = ProgressDialog(this)
             progressDialog.setTitle("Uploading...")
@@ -112,6 +120,9 @@ class WishDetailActivity : AppCompatActivity() {
     }
 
     fun deleteWish(wish: Wish) {
+        /**
+         * Method for deleted wish item
+         */
         val databaseHandler: DatabaseHandler = DatabaseHandler(this)
 
         val status = databaseHandler.deleteWish(wish)
@@ -124,6 +135,9 @@ class WishDetailActivity : AppCompatActivity() {
     }
 
     fun editWish(wish: Wish) {
+        /**
+         * method to edit data of wish
+         */
         val dialogBuilder = AlertDialog.Builder(this)
         val inflater = this.layoutInflater
         val dialogView = inflater.inflate(R.layout.update_dialog, null)
