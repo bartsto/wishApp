@@ -17,8 +17,8 @@
             android:roundIcon="@mipmap/ic_launcher_unicorn_round"
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
-        <activity android:name=".WishDetailActivity">
-        </activity>
+        <activity android:name=".WishDetailActivity" android:parentActivityName=".MainActivity"/>
+
         <activity
                 android:name=".NewWishActivity"
                 android:parentActivityName=".MainActivity">

@@ -11,13 +11,10 @@ import android.support.v7.app.AppCompatActivity
 import android.widget.ImageView
 import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_new_wish.*
-import kotlinx.android.synthetic.main.activity_second.*
-import kotlinx.android.synthetic.main.activity_wish_detail.*
 import java.io.File
 import java.io.IOException
 import java.text.SimpleDateFormat
 import java.util.*
-
 
 
 class NewWishActivity : AppCompatActivity() {
@@ -54,6 +51,7 @@ class NewWishActivity : AppCompatActivity() {
             try {
                 val file = File(currentPath)
                 val uri = Uri.fromFile(file)
+                currentPath = uri.toString()
                 image.setImageURI(uri)
             } catch (e: IOException) {
                 e.printStackTrace()
@@ -63,6 +61,7 @@ class NewWishActivity : AppCompatActivity() {
         if (requestCode == SELECT_PICTURE && resultCode == Activity.RESULT_OK) {
             try {
                 val uri = data!!.data
+                currentPath = uri.toString()
                 image.setImageURI(uri)
             } catch (e: IOException) {
                 e.printStackTrace()
@@ -111,7 +110,6 @@ class NewWishActivity : AppCompatActivity() {
         val wish_name = input_name.text.toString()
         val wish_description = input_description.text.toString()
         val image_path = currentPath
-        //TODO check this
         val wish_urlImage = currentUrlImage
         val databaseHandler: DatabaseHandler = DatabaseHandler(this)
 

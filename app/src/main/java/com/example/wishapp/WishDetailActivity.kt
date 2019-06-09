@@ -30,6 +30,22 @@ class WishDetailActivity : AppCompatActivity() {
         storage = FirebaseStorage.getInstance()
         storageReferences = storage!!.reference
 
+        val wishId = intent.getIntExtra("wishId", -1)
+        val databaseHandler: DatabaseHandler = DatabaseHandler(this)
+        val wish = databaseHandler.getWishList().get(wishId)
+
+        val wish_name_display = findViewById<EditText>(R.id.wish_name_display).apply {
+            setText(wish.name)
+        }
+
+        val wish_desc_display = findViewById<EditText>(R.id.wish_desc_display).apply {
+            setText(wish.description)
+        }
+
+        val wishDetailImage = findViewById<ImageView>(R.id.wish_detail_image).apply {
+            setImageURI(Uri.parse(Uri.decode(wish.imagePath)))
+            filePath = Uri.parse(Uri.decode(wish.imagePath))
+        }
 
         button_find.setOnClickListener{
             uploadFile()
@@ -40,31 +56,8 @@ class WishDetailActivity : AppCompatActivity() {
         }
 
         button_delete_wish.setOnClickListener{
-            deleteWish()
+            deleteWish(wish)
         }
-
-        val wishId = intent.getIntExtra("wishId", -1)
-        val databaseHandler: DatabaseHandler = DatabaseHandler(this)
-        val wish = databaseHandler.getWishList().get(wishId)
-
-        val wishDetailImage = findViewById<ImageView>(R.id.wish_detail_image).apply {
-            setImageURI(Uri.parse(Uri.decode(wish.imagePath)))
-        }
-
-        val wish_name_display = findViewById<EditText>(R.id.wish_name_display).apply {
-            setText(wish.name)
-        }
-
-        val wish_desc_display = findViewById<EditText>(R.id.wish_desc_display).apply {
-            setText(wish.description)
-        }
-        filePath = Uri.parse(Uri.decode(wish.imagePath))
-
-
-    }
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
     }
 
     private fun uploadFile() {
@@ -116,11 +109,17 @@ class WishDetailActivity : AppCompatActivity() {
         // zapisuje edytowane zmainy, zostaje w tym samym widoku
     }
 
-    fun deleteWish(){
-        val message = Toast.makeText(applicationContext, "Deleted wish", Toast.LENGTH_LONG)
-        message.show()
+    fun deleteWish(wish: Wish) {
+        val databaseHandler: DatabaseHandler= DatabaseHandler(this)
 
-        // usuwanie, po usunieciu przechodzi do poprzedniego widoku
+        val status = databaseHandler.deleteWish(wish)
+        if(status > -1){
+                Toast.makeText(applicationContext,"Wish deleted.",Toast.LENGTH_LONG).show()
+            finish()
+        }else{
+            Toast.makeText(applicationContext,"Something went wrong.",Toast.LENGTH_LONG).show()
+        }
+
     }
 
 }
