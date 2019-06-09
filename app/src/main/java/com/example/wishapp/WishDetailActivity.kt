@@ -63,13 +63,11 @@ class WishDetailActivity : AppCompatActivity() {
             deleteWish(wish)
         }
     }
-
     override fun onWindowFocusChanged(hasFocus: Boolean) {
         super.onWindowFocusChanged(hasFocus)
     }
 
     private fun uploadFile() {
-        println(filePath)
         if(filePath != null){
             val progressDialog = ProgressDialog(this)
             progressDialog.setTitle("Uploading...")
@@ -92,22 +90,21 @@ class WishDetailActivity : AppCompatActivity() {
                 }
                 .addOnCompleteListener{ task ->
                     if(task.isSuccessful){
-                        urlPath = task.result.toString()
-                        println("************************************************** GET URL ADDRESSES")
-                        println(urlPath)
+                        urlPath = getDownloadURL
+                        searchImage()
                     }
 
                 }
 
-//            searchImage(urlPath)
+
         }
     }
 
-    fun searchImage(imgPath: String) {
+    fun searchImage() {
         var base_url: String = "https://www.google.com/searchbyimage?site=search&sa=X&image_url="
-//        var google_shop: String = "https://www.google.com/search?q={}&source=lnms&tbm=shop&"
-//            .format("slowo + klucz")
-        val uri = Uri.parse(base_url + imgPath)
+        var item: String? = urlPath
+        var google_shop: String = "https://www.google.com/search?q=myszka+logitech&source=lnms&tbm=shop&"
+        val uri = Uri.parse(google_shop)
         var intent = Intent(Intent.ACTION_VIEW, uri)
         startActivity(intent)
     }
@@ -162,3 +159,56 @@ class WishDetailActivity : AppCompatActivity() {
         b.show()
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+val getDownloadURL: String = "https://www.google.com/url?sa=i&source=images&cd=&ved=2ahUKEwixtvDRiNziAhXDtYsKHW-RBdYQjRx6BAgBEAU&url=https%3A%2F%2Fwww.ceneo.pl%2F52643482&psig=AOvVaw3m6vFPmNJ8sPtD9MJrsjO_&ust=1560158277574393"

@@ -17,12 +17,9 @@
             android:roundIcon="@mipmap/ic_launcher_unicorn_round"
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
-        <activity android:name=".WishDetailActivity" android:parentActivityName=".MainActivity"/>
+        <activity android:name=".WishDetailActivity" />
 
-        <activity
-                android:name=".NewWishActivity"
-                android:parentActivityName=".MainActivity">
-        </activity>
+        <activity android:name=".NewWishActivity"/>
 
         <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
@@ -45,10 +42,6 @@
                     android:name="android.support.FILE_PROVIDER_PATHS"
                     android:resource="@xml/file_paths"/>
         </provider>
-
-        <activity
-                android:name=".SecondActivity"
-                android:parentActivityName=".MainActivity"/>
     </application>
 
 </manifest>
