@@ -29,15 +29,15 @@ class MainActivity : AppCompatActivity() {
     fun viewWishList() {
         val databaseHandler: DatabaseHandler = DatabaseHandler(this)
         val wishList: List<Wish> = databaseHandler.getWishList()
-        val wishArrayId = Array<String>(wishList.size){"0"}
+        val wishArrayIcon = Array<String>(wishList.size){"null"}
         val wishArrayName = Array<String>(wishList.size) { "null" }
         var index = 0
         for (w in wishList) {
-            wishArrayId[index] = w.wishId.toString()
+            wishArrayIcon[index] = w.imagePath.toString()
             wishArrayName[index] = w.name
             index++
         }
-        val myListAdapter = MyListAdapter(this, wishArrayId, wishArrayName, wishList)
+        val myListAdapter = MyListAdapter(this, wishArrayIcon, wishArrayName, wishList)
         listView.adapter = myListAdapter
 
         listView.setOnItemClickListener { parent, view, position, id ->
