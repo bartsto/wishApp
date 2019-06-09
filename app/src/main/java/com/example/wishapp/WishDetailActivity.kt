@@ -1,22 +1,38 @@
 package com.example.wishapp
 
+import android.app.ProgressDialog
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.widget.EditText
+import android.widget.ImageView
 import android.widget.Toast
+import com.google.firebase.storage.FileDownloadTask
+import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.storage.StorageReference
 import kotlinx.android.synthetic.main.activity_wish_detail.*
+import java.net.URI
+import java.util.*
 
 class WishDetailActivity : AppCompatActivity() {
+
+    private var filePath: Uri? = null
+
+    internal var storage:FirebaseStorage? = null
+    internal var storageReferences: StorageReference? = null
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_wish_detail)
 
+        storage = FirebaseStorage.getInstance()
+        storageReferences = storage!!.reference
+
 
         button_find.setOnClickListener{
-
+            uploadFile()
         }
 
         button_save_edited.setOnClickListener{
@@ -31,6 +47,10 @@ class WishDetailActivity : AppCompatActivity() {
         val databaseHandler: DatabaseHandler = DatabaseHandler(this)
         val wish = databaseHandler.getWishList().get(wishId)
 
+        val wishDetailImage = findViewById<ImageView>(R.id.wish_detail_image).apply {
+            setImageURI(Uri.parse(Uri.decode(wish.imagePath)))
+        }
+
         val wish_name_display = findViewById<EditText>(R.id.wish_name_display).apply {
             setText(wish.name)
         }
@@ -38,8 +58,38 @@ class WishDetailActivity : AppCompatActivity() {
         val wish_desc_display = findViewById<EditText>(R.id.wish_desc_display).apply {
             setText(wish.description)
         }
+        filePath = Uri.parse(Uri.decode(wish.imagePath))
 
 
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+    }
+
+    private fun uploadFile() {
+        if(filePath != null){
+            val progressDialog = ProgressDialog(this)
+            progressDialog.setTitle("Uploading...")
+            progressDialog.show()
+
+            val imageRef = storageReferences!!.child("images/" + UUID.randomUUID().toString())
+            imageRef.putFile(filePath!!)
+                .addOnSuccessListener {
+                    progressDialog.dismiss()
+                    Toast.makeText(applicationContext, "File uploaded", Toast.LENGTH_SHORT).show()
+
+                }
+                .addOnFailureListener{
+                    progressDialog.dismiss()
+                    Toast.makeText(applicationContext, "Failed", Toast.LENGTH_SHORT).show()
+                }
+                .addOnProgressListener {taskSnapShot ->
+                    val progress = 100.0 * taskSnapShot.bytesTransferred/taskSnapShot.totalByteCount
+                    progressDialog.setMessage("Uploaded " + progress.toInt() + "%...")
+                }
+
+        }
     }
 
     fun dispatchSaveEditedWishIntent(){
