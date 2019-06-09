@@ -8,13 +8,17 @@ import android.os.Environment
 import android.provider.MediaStore
 import android.support.v4.content.FileProvider
 import android.support.v7.app.AppCompatActivity
+import android.widget.ImageView
 import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_new_wish.*
 import kotlinx.android.synthetic.main.activity_second.*
+import kotlinx.android.synthetic.main.activity_wish_detail.*
 import java.io.File
 import java.io.IOException
 import java.text.SimpleDateFormat
 import java.util.*
+
+
 
 class NewWishActivity : AppCompatActivity() {
 
@@ -45,11 +49,12 @@ class NewWishActivity : AppCompatActivity() {
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        val image = findViewById<ImageView>(R.id.wish_photo)
         if (requestCode == TAKE_PICTURE && resultCode == Activity.RESULT_OK) {
             try {
                 val file = File(currentPath)
                 val uri = Uri.fromFile(file)
-                fotoImageView.setImageURI(uri)
+                image.setImageURI(uri)
             } catch (e: IOException) {
                 e.printStackTrace()
             }
@@ -58,7 +63,7 @@ class NewWishActivity : AppCompatActivity() {
         if (requestCode == SELECT_PICTURE && resultCode == Activity.RESULT_OK) {
             try {
                 val uri = data!!.data
-                fotoImageView.setImageURI(uri)
+                image.setImageURI(uri)
             } catch (e: IOException) {
                 e.printStackTrace()
             }
