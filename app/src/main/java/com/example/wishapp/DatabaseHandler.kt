@@ -10,20 +10,21 @@ import android.database.sqlite.SQLiteException
 class DatabaseHandler(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, null, DATABASE_VERSION) {
     companion object {
         private val DATABASE_VERSION = 1
-        private val DATABASE_NAME = "WishDB"
+        private val DATABASE_NAME = "WishDBBd"
         private val TABLE_WISH = "WishTable"
         private val KEY_ID = "id"
         private val KEY_NAME = "name"
         private val KEY_DESCRIPTION = "description"
         private val KEY_IMAGEPATH = "imagePath"
+        private val KEY_URLIMAGE = "urlImage"
     }
 
     override fun onCreate(db: SQLiteDatabase?) {
         db!!.execSQL("DROP TABLE IF EXISTS " + TABLE_WISH)
         val CREATE_WISH_TABLE = ("CREATE TABLE " + TABLE_WISH + "("
                 + KEY_ID + " INTEGER PRIMARY KEY," + KEY_NAME + " TEXT," + KEY_DESCRIPTION + " TEXT,"
-                + KEY_IMAGEPATH + " TEXT" + ")")
-        db?.execSQL(CREATE_WISH_TABLE)
+                + KEY_IMAGEPATH + " TEXT," + KEY_URLIMAGE + " TEXT" + ")")
+        db!!.execSQL(CREATE_WISH_TABLE)
     }
 
     override fun onUpgrade(db: SQLiteDatabase?, oldVersion: Int, newVersion: Int) {
@@ -38,6 +39,7 @@ class DatabaseHandler(context: Context) : SQLiteOpenHelper(context, DATABASE_NAM
         contentValues.put(KEY_NAME, wish.name)
         contentValues.put(KEY_DESCRIPTION, wish.description)
         contentValues.put(KEY_IMAGEPATH, wish.imagePath)
+        contentValues.put(KEY_URLIMAGE, wish.urlImage)
         val success = db.insert(TABLE_WISH, null, contentValues)
         db.close()
         return success
@@ -58,13 +60,15 @@ class DatabaseHandler(context: Context) : SQLiteOpenHelper(context, DATABASE_NAM
         var wishName: String
         var wishDescription: String
         var wishImage: String
+        var wishUrlImage: String
         if (cursor.moveToFirst()) {
             do {
                 wishId = cursor.getInt(cursor.getColumnIndex("id"))
                 wishName = cursor.getString(cursor.getColumnIndex("name"))
                 wishDescription = cursor.getString(cursor.getColumnIndex("description"))
-                wishImage = cursor.getString(cursor.getColumnIndex("name"))
-                val wish = Wish(wishId = wishId, name = wishName, description = wishDescription, imagePath = wishImage)
+                wishImage = cursor.getString(cursor.getColumnIndex("imagePath"))
+                wishUrlImage = cursor.getString(cursor.getColumnIndex("urlImage"))
+                val wish = Wish(wishId = wishId, name = wishName, description = wishDescription, imagePath = wishImage, urlImage = wishUrlImage)
                 wishList.add(wish)
             } while (cursor.moveToNext())
         }
