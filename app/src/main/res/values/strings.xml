@@ -9,7 +9,9 @@
     <string name="button_gallery">Gallery</string>
     <string name="button_add">Add wish</string>
     <string name="button_new">New wish!</string>
-    <string name="button_save_changes">Save changes</string>
+    <string name="button_edit_wish">Edit wish</string>
     <string name="button_delete_wish">Delete wish</string>
     <string name="button_find">Find wish!</string>
+    <string name="hint_enter_name">Enter name</string>
+    <string name="hint_enter_description">Enter description</string>
 </resources>

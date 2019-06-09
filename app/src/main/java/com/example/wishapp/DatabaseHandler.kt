@@ -78,8 +78,19 @@ class DatabaseHandler(context: Context) : SQLiteOpenHelper(context, DATABASE_NAM
     fun deleteWish(wish: Wish):Int{
         val db = this.writableDatabase
         val contentValues = ContentValues()
-        contentValues.put(KEY_ID, wish.wishId) // EmpModelClass UserId
+        contentValues.put(KEY_ID, wish.wishId)
         val success = db.delete(TABLE_WISH,"id="+wish.wishId,null)
+        db.close()
+        return success
+    }
+
+    fun updateWish(wish: Wish):Int{
+        val db = this.writableDatabase
+        val contentValues = ContentValues()
+        contentValues.put(KEY_ID, wish.wishId)
+        contentValues.put(KEY_NAME, wish.name)
+        contentValues.put(KEY_DESCRIPTION,wish.description)
+        val success = db.update(TABLE_WISH, contentValues,"id="+wish.wishId,null)
         db.close()
         return success
     }
