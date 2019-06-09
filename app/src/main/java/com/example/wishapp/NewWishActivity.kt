@@ -18,8 +18,8 @@ import java.util.*
 
 class NewWishActivity : AppCompatActivity() {
 
-
-    var currentPath: String? = null
+    var currentPath: String? = ""
+    var currentUrlImage: String? = ""
     val TAKE_PICTURE = 1
     val SELECT_PICTURE = 2
 
@@ -106,10 +106,12 @@ class NewWishActivity : AppCompatActivity() {
         val wish_name = input_name.text.toString()
         val wish_description = input_description.text.toString()
         val image_path = currentPath
+        //TODO check this
+        val wish_urlImage = currentUrlImage
         val databaseHandler: DatabaseHandler = DatabaseHandler(this)
 
         if (wish_name.trim() != "" && wish_description.trim() != "") {
-            val status = databaseHandler.addWish(Wish(wish_id, wish_name, wish_description, image_path))
+            val status = databaseHandler.addWish(Wish(wish_id, wish_name, wish_description, image_path, wish_urlImage))
             if (status > -1) {
                 Toast.makeText(applicationContext, "Record saved", Toast.LENGTH_LONG).show()
                 input_name.text.clear()

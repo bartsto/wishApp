@@ -1,16 +1,12 @@
 package com.example.wishapp
 
 import android.content.Intent
-import android.content.Intent.ACTION_VIEW
-import android.graphics.Bitmap
 import android.net.Uri
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
-import android.provider.MediaStore
-import android.util.Log
+import android.support.v7.app.AppCompatActivity
+import android.widget.EditText
 import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_wish_detail.*
-import java.io.ByteArrayOutputStream
 
 class WishDetailActivity : AppCompatActivity() {
 
@@ -30,6 +26,20 @@ class WishDetailActivity : AppCompatActivity() {
         button_delete_wish.setOnClickListener{
             deleteWish()
         }
+
+        val wishId = intent.getIntExtra("wishId", -1)
+        val databaseHandler: DatabaseHandler = DatabaseHandler(this)
+        val wish = databaseHandler.getWishList().get(wishId)
+
+        val wish_name_display = findViewById<EditText>(R.id.wish_name_display).apply {
+            setText(wish.name)
+        }
+
+        val wish_desc_display = findViewById<EditText>(R.id.wish_desc_display).apply {
+            setText(wish.description)
+        }
+
+
     }
 
     fun dispatchSaveEditedWishIntent(){
@@ -62,7 +72,5 @@ class WishDetailActivity : AppCompatActivity() {
 
         // usuwanie, po usunieciu przechodzi do poprzedniego widoku
     }
-
-
 
 }

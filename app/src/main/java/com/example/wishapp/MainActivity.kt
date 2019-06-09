@@ -4,7 +4,6 @@ import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.view.View
-import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_main.*
 
 const val EXTRA_MESSAGE = "com.example.wishapp.MESSAGE"
@@ -41,10 +40,12 @@ class MainActivity : AppCompatActivity() {
         val myListAdapter = MyListAdapter(this, wishArrayId, wishArrayName, wishList)
         listView.adapter = myListAdapter
 
-
-        //TODO toast tymczasowy, do zmiany na przekierowanie do widoku wishDetails
         listView.setOnItemClickListener { parent, view, position, id ->
-                Toast.makeText( applicationContext, "Trzeba zrobic zeby przenosiło :) ", Toast.LENGTH_SHORT).show()
+            val selectedWish: Int = wishList.get(wishList.size - position - 1).wishId
+            val detailIntent = Intent(this, WishDetailActivity::class.java).apply {
+                putExtra("wishId", selectedWish)
+            }
+            startActivity(detailIntent)
         }
     }
 }
