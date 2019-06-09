@@ -74,4 +74,13 @@ class DatabaseHandler(context: Context) : SQLiteOpenHelper(context, DATABASE_NAM
         }
         return wishList
     }
+
+    fun deleteWish(wish: Wish):Int{
+        val db = this.writableDatabase
+        val contentValues = ContentValues()
+        contentValues.put(KEY_ID, wish.wishId) // EmpModelClass UserId
+        val success = db.delete(TABLE_WISH,"id="+wish.wishId,null)
+        db.close()
+        return success
+    }
 }

@@ -5,6 +5,7 @@ import android.net.Uri
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.widget.EditText
+import android.widget.ImageView
 import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_wish_detail.*
 
@@ -13,19 +14,6 @@ class WishDetailActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_wish_detail)
-
-
-        button_find.setOnClickListener{
-
-        }
-
-        button_save_edited.setOnClickListener{
-            saveWish()
-        }
-
-        button_delete_wish.setOnClickListener{
-            deleteWish()
-        }
 
         val wishId = intent.getIntExtra("wishId", -1)
         val databaseHandler: DatabaseHandler = DatabaseHandler(this)
@@ -38,6 +26,24 @@ class WishDetailActivity : AppCompatActivity() {
         val wish_desc_display = findViewById<EditText>(R.id.wish_desc_display).apply {
             setText(wish.description)
         }
+
+        val wishDetailImage = findViewById<ImageView>(R.id.wish_detail_image).apply {
+            setImageURI(Uri.parse(Uri.decode(wish.imagePath)))
+        }
+
+        button_find.setOnClickListener{
+
+        }
+
+        button_save_edited.setOnClickListener{
+            saveWish()
+        }
+
+        button_delete_wish.setOnClickListener{
+            deleteWish(wish)
+        }
+
+
 
 
     }
@@ -66,11 +72,17 @@ class WishDetailActivity : AppCompatActivity() {
         // zapisuje edytowane zmainy, zostaje w tym samym widoku
     }
 
-    fun deleteWish(){
-        val message = Toast.makeText(applicationContext, "Deleted wish", Toast.LENGTH_LONG)
-        message.show()
+    fun deleteWish(wish: Wish) {
+        val databaseHandler: DatabaseHandler= DatabaseHandler(this)
 
-        // usuwanie, po usunieciu przechodzi do poprzedniego widoku
+        val status = databaseHandler.deleteWish(wish)
+        if(status > -1){
+                Toast.makeText(applicationContext,"Wish deleted.",Toast.LENGTH_LONG).show()
+            finish()
+        }else{
+            Toast.makeText(applicationContext,"Something went wrong.",Toast.LENGTH_LONG).show()
+        }
+
     }
 
 }
