@@ -2,7 +2,12 @@ package com.example.wishapp.model
 
 /**
  * Wish class with name, description.
- * @param takrka
+ * @param wishId id wish in database
+ * @param name name of wish
+ * @param description description of wish
+ * @param imagePath local path to picture of wish in storage
+ * @param urlImage url address of image
+ *
  */
 
 class Wish (
