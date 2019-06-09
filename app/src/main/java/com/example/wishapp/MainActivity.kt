@@ -31,17 +31,17 @@ class MainActivity : AppCompatActivity() {
         val wishList: List<Wish> = databaseHandler.getWishList()
         val wishArrayId = Array<String>(wishList.size){"0"}
         val wishArrayName = Array<String>(wishList.size) { "null" }
-        var index = wishList.size-1
+        var index = 0
         for (w in wishList) {
             wishArrayId[index] = w.wishId.toString()
             wishArrayName[index] = w.name
-            index--
+            index++
         }
         val myListAdapter = MyListAdapter(this, wishArrayId, wishArrayName, wishList)
         listView.adapter = myListAdapter
 
         listView.setOnItemClickListener { parent, view, position, id ->
-            val selectedWish: Int = wishList.get(wishList.size - position - 1).wishId
+            val selectedWish: Int = wishList.get(position).wishId
             val detailIntent = Intent(this, WishDetailActivity::class.java).apply {
                 putExtra("wishId", selectedWish)
             }

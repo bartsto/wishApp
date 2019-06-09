@@ -5,6 +5,7 @@ import android.net.Uri
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.widget.EditText
+import android.widget.ImageView
 import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_wish_detail.*
 
@@ -24,6 +25,10 @@ class WishDetailActivity : AppCompatActivity() {
 
         val wish_desc_display = findViewById<EditText>(R.id.wish_desc_display).apply {
             setText(wish.description)
+        }
+
+        val wishDetailImage = findViewById<ImageView>(R.id.wish_detail_image).apply {
+            setImageURI(Uri.parse(Uri.decode(wish.imagePath)))
         }
 
         button_find.setOnClickListener{
