@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                                             android:layout_width="match_parent"
-                                             android:layout_height="match_parent"
-                                            android:id="@+id/linearLayout"
-                                            android:padding="10dp">
-    <TextView
-            android:id="@+id/textViewId"
-            android:layout_width="50pt"
-            android:layout_height="wrap_content"
-            android:text="Id"
-            android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
-            android:textColor="@android:color/black"
-            android:textStyle="bold"/>
+              android:layout_width="match_parent"
+              android:layout_height="match_parent" xmlns:tools="http://schemas.android.com/tools"
+              android:id="@+id/linearLayout"
+              android:padding="10dp">
+
+    <ImageView
+            android:layout_width="90dp"
+            android:layout_height="66dp"
+            android:src="@drawable/ic_launcher_foreground_unicorn"
+            android:id="@+id/wish_list_thumbnail"/>
     <TextView
             android:id="@+id/textViewName"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="66dp"
             android:text="Name"
+            android:gravity="center_vertical"
+            android:layout_marginLeft="8dp"
             android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
             android:textColor="@android:color/black"
             android:textStyle="bold"/>
