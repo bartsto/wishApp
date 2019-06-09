@@ -21,6 +21,12 @@ import java.util.*
 
 
 class NewWishActivity : AppCompatActivity() {
+    /**
+     * Activity for create new wish
+     * Possibility to add image from gallery or take picture by camera
+     * Created wish with provided data(name and description)
+     * Saved all date in local database
+     */
 
     var currentPath: String? = ""
     var currentUrlImage: String? = ""

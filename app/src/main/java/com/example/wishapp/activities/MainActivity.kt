@@ -11,6 +11,11 @@ import com.example.wishapp.model.Wish
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
+    /**
+     * The main activity of project
+     * This activity has displayed list of wishes end button to create a new one
+     * @param savedInstanceState
+     */
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
