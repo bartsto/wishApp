@@ -8,6 +8,15 @@ import android.database.Cursor
 import android.database.sqlite.SQLiteException
 import com.example.wishapp.model.Wish
 
+/**
+ * Class responsible for connection with SQLite Database.
+ * Possible operations:
+ * create new wish,
+ * update wish name and description,
+ * delete wish,
+ * get wish list.
+ */
+
 class DatabaseHandler(context: Context) : SQLiteOpenHelper(context,
     DATABASE_NAME, null,
     DATABASE_VERSION
