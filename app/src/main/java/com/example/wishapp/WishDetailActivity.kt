@@ -14,19 +14,6 @@ class WishDetailActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_wish_detail)
 
-
-        button_find.setOnClickListener{
-
-        }
-
-        button_save_edited.setOnClickListener{
-            saveWish()
-        }
-
-        button_delete_wish.setOnClickListener{
-            deleteWish()
-        }
-
         val wishId = intent.getIntExtra("wishId", -1)
         val databaseHandler: DatabaseHandler = DatabaseHandler(this)
         val wish = databaseHandler.getWishList().get(wishId)
@@ -38,6 +25,20 @@ class WishDetailActivity : AppCompatActivity() {
         val wish_desc_display = findViewById<EditText>(R.id.wish_desc_display).apply {
             setText(wish.description)
         }
+
+        button_find.setOnClickListener{
+
+        }
+
+        button_save_edited.setOnClickListener{
+            saveWish()
+        }
+
+        button_delete_wish.setOnClickListener{
+            deleteWish(wish)
+        }
+
+
 
 
     }
@@ -66,11 +67,17 @@ class WishDetailActivity : AppCompatActivity() {
         // zapisuje edytowane zmainy, zostaje w tym samym widoku
     }
 
-    fun deleteWish(){
-        val message = Toast.makeText(applicationContext, "Deleted wish", Toast.LENGTH_LONG)
-        message.show()
+    fun deleteWish(wish: Wish) {
+        val databaseHandler: DatabaseHandler= DatabaseHandler(this)
 
-        // usuwanie, po usunieciu przechodzi do poprzedniego widoku
+        val status = databaseHandler.deleteWish(wish)
+        if(status > -1){
+                Toast.makeText(applicationContext,"Wish deleted.",Toast.LENGTH_LONG).show()
+            finish()
+        }else{
+            Toast.makeText(applicationContext,"Something went wrong.",Toast.LENGTH_LONG).show()
+        }
+
     }
 
 }
