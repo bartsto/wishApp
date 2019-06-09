@@ -17,15 +17,15 @@
             android:roundIcon="@mipmap/ic_launcher_unicorn_round"
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
-        <activity android:name=".WishDetailActivity" />
+        <activity android:name=".activities.WishDetailActivity" />
 
-        <activity android:name=".NewWishActivity"/>
+        <activity android:name=".activities.NewWishActivity"/>
 
         <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".MainActivity"/>
+                android:value=".activities.MainActivity"/>
 
-        <activity android:name=".MainActivity">
+        <activity android:name=".activities.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 

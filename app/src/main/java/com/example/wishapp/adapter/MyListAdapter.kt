@@ -1,4 +1,4 @@
-package com.example.wishapp
+package com.example.wishapp.adapter
 
 import android.app.Activity
 import android.net.Uri
@@ -7,6 +7,8 @@ import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.ImageView
 import android.widget.TextView
+import com.example.wishapp.R
+import com.example.wishapp.model.Wish
 
 class MyListAdapter(private val context: Activity, private val imagePath: Array<String>, private val name: Array<String>, private val wishList:List<Wish>)
     : ArrayAdapter<String>(context, R.layout.wish_list, name) {

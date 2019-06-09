@@ -1,4 +1,4 @@
-package com.example.wishapp
+package com.example.wishapp.model
 
 class Category{
     var name: String = ""

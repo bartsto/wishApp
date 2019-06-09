@@ -1,7 +1,7 @@
-package com.example.wishapp
+package com.example.wishapp.activities
 
-import android.content.DialogInterface
 import android.app.ProgressDialog
+import android.content.DialogInterface
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -11,11 +11,13 @@ import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
+import com.example.wishapp.R
+import com.example.wishapp.db.DatabaseHandler
+import com.example.wishapp.model.Wish
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 import kotlinx.android.synthetic.main.activity_wish_detail.*
 import java.util.*
-
 
 class WishDetailActivity : AppCompatActivity() {
 

@@ -1,4 +1,4 @@
-package com.example.wishapp
+package com.example.wishapp.activities
 
 import android.app.Activity
 import android.content.Intent
@@ -10,6 +10,9 @@ import android.support.v4.content.FileProvider
 import android.support.v7.app.AppCompatActivity
 import android.widget.ImageView
 import android.widget.Toast
+import com.example.wishapp.R
+import com.example.wishapp.db.DatabaseHandler
+import com.example.wishapp.model.Wish
 import kotlinx.android.synthetic.main.activity_new_wish.*
 import java.io.File
 import java.io.IOException
@@ -114,7 +117,15 @@ class NewWishActivity : AppCompatActivity() {
         val databaseHandler: DatabaseHandler = DatabaseHandler(this)
 
         if (wish_name.trim() != "" && wish_description.trim() != "") {
-            val status = databaseHandler.addWish(Wish(wish_id, wish_name, wish_description, image_path, wish_urlImage))
+            val status = databaseHandler.addWish(
+                Wish(
+                    wish_id,
+                    wish_name,
+                    wish_description,
+                    image_path,
+                    wish_urlImage
+                )
+            )
             if (status > -1) {
                 Toast.makeText(applicationContext, "Record saved", Toast.LENGTH_LONG).show()
                 input_name.text.clear()

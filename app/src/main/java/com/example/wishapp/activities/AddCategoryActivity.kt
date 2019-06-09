@@ -1,16 +1,16 @@
-package com.example.wishapp
+package com.example.wishapp.activities
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.support.v7.app.AppCompatActivity
 import android.widget.EditText
+import com.example.wishapp.R
 
 class AddCategoryActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_second)
+//        setContentView(R.layout.activity_second)
     }
 
     fun addCategory(view: View) {

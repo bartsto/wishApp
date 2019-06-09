@@ -13,6 +13,7 @@ import org.junit.runner.RunWith
 import org.junit.Rule
 import android.support.test.espresso.Espresso.onView as onView
 import android.support.test.rule.ActivityTestRule
+import com.example.wishapp.activities.NewWishActivity
 
 
 /**

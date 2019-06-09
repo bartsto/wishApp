@@ -1,4 +1,9 @@
-package com.example.wishapp
+package com.example.wishapp.model
+
+/**
+ * Wish class with name, description.
+ * @param takrka
+ */
 
 class Wish (
     var wishId: Int,

@@ -1,4 +1,4 @@
-package com.example.wishapp
+package com.example.wishapp.db
 
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase
@@ -6,8 +6,12 @@ import android.database.sqlite.SQLiteOpenHelper
 import android.content.ContentValues
 import android.database.Cursor
 import android.database.sqlite.SQLiteException
+import com.example.wishapp.model.Wish
 
-class DatabaseHandler(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, null, DATABASE_VERSION) {
+class DatabaseHandler(context: Context) : SQLiteOpenHelper(context,
+    DATABASE_NAME, null,
+    DATABASE_VERSION
+) {
     companion object {
         private val DATABASE_VERSION = 1
         private val DATABASE_NAME = "WishDBBd"
@@ -68,7 +72,13 @@ class DatabaseHandler(context: Context) : SQLiteOpenHelper(context, DATABASE_NAM
                 wishDescription = cursor.getString(cursor.getColumnIndex("description"))
                 wishImage = cursor.getString(cursor.getColumnIndex("imagePath"))
                 wishUrlImage = cursor.getString(cursor.getColumnIndex("urlImage"))
-                val wish = Wish(wishId = wishId, name = wishName, description = wishDescription, imagePath = wishImage, urlImage = wishUrlImage)
+                val wish = Wish(
+                    wishId = wishId,
+                    name = wishName,
+                    description = wishDescription,
+                    imagePath = wishImage,
+                    urlImage = wishUrlImage
+                )
                 wishList.add(wish)
             } while (cursor.moveToNext())
         }
